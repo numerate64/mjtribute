@@ -161,7 +161,8 @@ h1 {
 }
 
 .today-button,
-.day-button {
+.day-button,
+.video-link {
   border: 1px solid var(--line);
   color: var(--text);
   background: var(--control-bg);
@@ -173,10 +174,22 @@ h1 {
     transform 160ms ease;
 }
 
+.video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 30px;
+  padding: 12px 15px;
+  font-weight: 900;
+}
+
 .today-button:hover,
-.day-button:hover {
+.day-button:hover,
+.video-link:hover,
+.video-link:focus-visible {
   border-color: rgba(216, 180, 95, 0.75);
   background: var(--control-hover);
+  outline: none;
 }
 
 .artwork-panel {

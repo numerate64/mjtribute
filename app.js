@@ -254,6 +254,7 @@ const elements = {
   title: document.querySelector("#songTitle"),
   album: document.querySelector("#albumLine"),
   tribute: document.querySelector("#tributeLine"),
+  videoLink: document.querySelector("#videoLink"),
   art: document.querySelector("#songArt"),
   caption: document.querySelector("#artCaption"),
   grid: document.querySelector("#calendarGrid"),
@@ -302,6 +303,8 @@ function renderDay(day) {
   elements.title.textContent = song.title;
   elements.album.textContent = `${song.album} | ${song.year}`;
   elements.tribute.textContent = song.tribute;
+  elements.videoLink.href = `https://music.youtube.com/search?q=${encodeURIComponent(`Michael Jackson ${song.title} official video`)}`;
+  elements.videoLink.setAttribute("aria-label", `Open YouTube Music search for ${song.title} official video`);
   elements.art.src = song.image;
   elements.art.alt = `${song.album} artwork for ${song.title}`;
   elements.caption.textContent = `${song.album} era artwork`;
