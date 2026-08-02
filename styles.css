@@ -161,8 +161,7 @@ h1 {
 }
 
 .today-button,
-.day-button,
-.video-link {
+.day-button {
   border: 1px solid var(--line);
   color: var(--text);
   background: var(--control-bg);
@@ -174,22 +173,68 @@ h1 {
     transform 160ms ease;
 }
 
-.video-link {
+.music-links {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   margin-top: 30px;
-  padding: 12px 15px;
-  font-weight: 900;
+}
+
+.music-link {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: var(--control-bg);
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.music-link svg {
+  width: 26px;
+  height: 26px;
+}
+
+.music-link-youtube {
+  color: #ff0033;
+}
+
+.music-link-spotify {
+  color: #1ed760;
+}
+
+.music-link-apple {
+  color: #fa2d48;
 }
 
 .today-button:hover,
-.day-button:hover,
-.video-link:hover,
-.video-link:focus-visible {
+.day-button:hover {
   border-color: rgba(216, 180, 95, 0.75);
   background: var(--control-hover);
+}
+
+.music-link:hover,
+.music-link:focus-visible {
+  border-color: currentColor;
+  background: var(--control-hover);
   outline: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .artwork-panel {
