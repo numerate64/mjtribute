@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Michael Jackson August Tribute</title>
+    <meta
+      name="description"
+      content="A daily August tribute to Michael Jackson, featuring one song for each day of the month."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="feature" aria-live="polite">
+        <div class="feature-copy">
+          <p class="kicker" id="dateLabel">August</p>
+          <h1 id="songTitle">Loading</h1>
+          <p class="album" id="albumLine"></p>
+          <p class="tribute" id="tributeLine"></p>
+          <a class="beautiful-link" href="https://www.beautiful.ai/player/-Oz-5ggYdqbb5R7xmOaG?showControls=true">
+            View Beautiful.ai deck
+          </a>
+        </div>
+
+        <figure class="artwork-panel">
+          <img id="songArt" alt="" />
+          <figcaption id="artCaption"></figcaption>
+        </figure>
+      </section>
+
+      <section class="calendar-section" aria-labelledby="calendarHeading">
+        <div class="calendar-header">
+          <h2 id="calendarHeading">August Calendar</h2>
+          <button class="today-button" id="todayButton" type="button">Today</button>
+        </div>
+        <div class="calendar-grid" id="calendarGrid" aria-label="Choose an August date"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

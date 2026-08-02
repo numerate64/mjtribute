@@ -24,3 +24,7 @@ Presentation ID:
 ## Notes
 
 The deck avoids lyrics and is intended as a respectful tribute presentation.
+
+## GitHub Pages App
+
+The static site opens to the current day of the month and displays that day's August tribute song. Calendar buttons let visitors preview any other August date. A page refresh recalculates the current day and returns to today's song.
