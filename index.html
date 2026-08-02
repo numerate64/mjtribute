@@ -22,9 +22,12 @@
     <main class="app-shell">
       <div class="utility-bar">
         <span>Michael Jackson August Tribute</span>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
-          <span class="theme-icon" aria-hidden="true">☾</span>
-        </button>
+        <div class="utility-actions">
+          <time class="local-time" id="localTime" aria-live="polite">Local time --:--:--</time>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+            <span class="theme-icon" aria-hidden="true">☾</span>
+          </button>
+        </div>
       </div>
 
       <section class="feature" aria-live="polite">

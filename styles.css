@@ -70,6 +70,23 @@ body {
   text-transform: uppercase;
 }
 
+.utility-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.local-time {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: var(--control-bg);
+  font-variant-numeric: tabular-nums;
+}
+
 .theme-toggle {
   display: inline-grid;
   place-items: center;
@@ -260,6 +277,11 @@ h2 {
 
   .calendar-grid {
     grid-template-columns: repeat(7, minmax(38px, 1fr));
+  }
+
+  .utility-bar {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 

@@ -259,6 +259,7 @@ const elements = {
   grid: document.querySelector("#calendarGrid"),
   todayButton: document.querySelector("#todayButton"),
   themeToggle: document.querySelector("#themeToggle"),
+  localTime: document.querySelector("#localTime"),
 };
 
 const todayDay = Math.min(Math.max(new Date().getDate(), 1), 31);
@@ -281,6 +282,16 @@ function applyTheme(theme) {
   elements.themeToggle.setAttribute("aria-pressed", String(light));
   elements.themeToggle.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
   elements.themeToggle.querySelector(".theme-icon").textContent = light ? "☀" : "☾";
+}
+
+function updateLocalTime() {
+  const now = new Date();
+  elements.localTime.dateTime = now.toISOString();
+  elements.localTime.textContent = `Local time ${now.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+  })}`;
 }
 
 function renderDay(day) {
@@ -328,3 +339,5 @@ elements.themeToggle.addEventListener("click", () => {
 buildCalendar();
 applyTheme(currentTheme());
 renderDay(todayDay);
+updateLocalTime();
+setInterval(updateLocalTime, 1000);
