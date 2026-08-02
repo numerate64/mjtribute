@@ -8,10 +8,25 @@
       name="description"
       content="A daily August tribute to Michael Jackson, featuring one song for each day of the month."
     />
+    <script>
+      try {
+        const savedTheme = localStorage.getItem("mjtribute-theme");
+        document.documentElement.dataset.theme = savedTheme === "light" ? "light" : "dark";
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app-shell">
+      <div class="utility-bar">
+        <span>Michael Jackson August Tribute</span>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true">☾</span>
+        </button>
+      </div>
+
       <section class="feature" aria-live="polite">
         <div class="feature-copy">
           <p class="kicker" id="dateLabel">August</p>

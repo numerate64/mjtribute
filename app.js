@@ -258,10 +258,30 @@ const elements = {
   caption: document.querySelector("#artCaption"),
   grid: document.querySelector("#calendarGrid"),
   todayButton: document.querySelector("#todayButton"),
+  themeToggle: document.querySelector("#themeToggle"),
 };
 
 const todayDay = Math.min(Math.max(new Date().getDate(), 1), 31);
 let selectedDay = todayDay;
+
+function currentTheme() {
+  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+}
+
+function applyTheme(theme) {
+  const nextTheme = theme === "light" ? "light" : "dark";
+  document.documentElement.dataset.theme = nextTheme;
+  try {
+    localStorage.setItem("mjtribute-theme", nextTheme);
+  } catch {
+    // Theme still changes for the current page view when storage is unavailable.
+  }
+
+  const light = nextTheme === "light";
+  elements.themeToggle.setAttribute("aria-pressed", String(light));
+  elements.themeToggle.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
+  elements.themeToggle.querySelector(".theme-icon").textContent = light ? "☀" : "☾";
+}
 
 function renderDay(day) {
   const song = songs[day - 1] || songs[0];
@@ -301,6 +321,10 @@ function buildCalendar() {
 }
 
 elements.todayButton.addEventListener("click", () => renderDay(todayDay));
+elements.themeToggle.addEventListener("click", () => {
+  applyTheme(currentTheme() === "light" ? "dark" : "light");
+});
 
 buildCalendar();
+applyTheme(currentTheme());
 renderDay(todayDay);
