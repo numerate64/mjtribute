@@ -268,6 +268,10 @@ const elements = {
 const todayDay = Math.min(Math.max(new Date().getDate(), 1), 31);
 let selectedDay = todayDay;
 
+function dayHasArrived(day) {
+  return day <= todayDay;
+}
+
 function currentTheme() {
   return document.documentElement.dataset.theme === "light" ? "light" : "dark";
 }
@@ -298,6 +302,8 @@ function updateLocalTime() {
 }
 
 function renderDay(day) {
+  if (!dayHasArrived(day)) return;
+
   const song = songs[day - 1] || songs[0];
   selectedDay = song.day;
 
@@ -332,9 +338,21 @@ function buildCalendar() {
     button.type = "button";
     button.textContent = String(song.day);
     button.dataset.day = String(song.day);
-    button.setAttribute("aria-label", `Show August ${song.day}: ${song.title}`);
+    const available = dayHasArrived(song.day);
+    button.disabled = !available;
+    button.setAttribute(
+      "aria-label",
+      available
+        ? `Show August ${song.day}: ${song.title}`
+        : `August ${song.day} unlocks when the day arrives`,
+    );
+    if (!available) {
+      button.title = `Unlocks August ${song.day}`;
+    }
     button.classList.toggle("is-today", song.day === todayDay);
-    button.addEventListener("click", () => renderDay(song.day));
+    if (available) {
+      button.addEventListener("click", () => renderDay(song.day));
+    }
     fragment.appendChild(button);
   });
 
