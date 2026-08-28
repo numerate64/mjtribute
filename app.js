@@ -251,6 +251,7 @@ const songs = [
 
 const elements = {
   dateLabel: document.querySelector("#dateLabel"),
+  birthdayBanner: document.querySelector("#birthdayBanner"),
   title: document.querySelector("#songTitle"),
   album: document.querySelector("#albumLine"),
   tribute: document.querySelector("#tributeLine"),
@@ -267,6 +268,7 @@ const elements = {
 
 const todayDay = Math.min(Math.max(new Date().getDate(), 1), 31);
 let selectedDay = todayDay;
+const birthdayDay = 29;
 
 function dayHasArrived(day) {
   return day <= todayDay;
@@ -306,11 +308,14 @@ function renderDay(day) {
 
   const song = songs[day - 1] || songs[0];
   selectedDay = song.day;
+  const isBirthday = song.day === birthdayDay;
 
   elements.dateLabel.textContent = `August ${song.day}`;
+  elements.birthdayBanner.hidden = !isBirthday;
   elements.title.textContent = song.title;
   elements.album.textContent = `${song.album} | ${song.year}`;
   elements.tribute.textContent = song.tribute;
+  document.body.classList.toggle("is-birthday-mode", isBirthday);
   const songQuery = `Michael Jackson ${song.title}`;
   elements.youtubeMusicLink.href = `https://music.youtube.com/search?q=${encodeURIComponent(`${songQuery} official video`)}`;
   elements.spotifyLink.href = `https://open.spotify.com/search/${encodeURIComponent(songQuery)}`;
@@ -325,6 +330,7 @@ function renderDay(day) {
   document.querySelectorAll(".day-button").forEach((button) => {
     const buttonDay = Number(button.dataset.day);
     button.classList.toggle("is-selected", buttonDay === selectedDay);
+    button.classList.toggle("is-birthday-selected", isBirthday && buttonDay === birthdayDay);
     button.setAttribute("aria-pressed", String(buttonDay === selectedDay));
   });
 }
@@ -350,6 +356,7 @@ function buildCalendar() {
       button.title = `Unlocks August ${song.day}`;
     }
     button.classList.toggle("is-today", song.day === todayDay);
+    button.classList.toggle("is-birthday", song.day === birthdayDay);
     if (available) {
       button.addEventListener("click", () => renderDay(song.day));
     }

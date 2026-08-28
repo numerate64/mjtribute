@@ -14,6 +14,7 @@
   --control-bg: rgba(255, 255, 255, 0.07);
   --control-hover: rgba(216, 180, 95, 0.14);
   --shadow: rgba(0, 0, 0, 0.48);
+  --birthday-wash: rgba(216, 180, 95, 0.22);
 }
 
 :root[data-theme="light"] {
@@ -32,6 +33,7 @@
   --control-bg: rgba(255, 255, 255, 0.76);
   --control-hover: rgba(156, 104, 25, 0.12);
   --shadow: rgba(54, 48, 38, 0.22);
+  --birthday-wash: rgba(156, 104, 25, 0.15);
 }
 
 * {
@@ -46,6 +48,15 @@ body {
     sans-serif;
   color: var(--text);
   background:
+    linear-gradient(115deg, var(--wash-red), transparent 34%),
+    linear-gradient(300deg, var(--wash-blue), transparent 42%),
+    var(--bg);
+}
+
+body.is-birthday-mode {
+  background:
+    linear-gradient(95deg, var(--birthday-wash), transparent 28rem),
+    linear-gradient(265deg, rgba(110, 182, 194, 0.18), transparent 24rem),
     linear-gradient(115deg, var(--wash-red), transparent 34%),
     linear-gradient(300deg, var(--wash-blue), transparent 42%),
     var(--bg);
@@ -125,6 +136,36 @@ body {
 
 .feature-copy {
   min-width: 0;
+}
+
+.birthday-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 9px 12px;
+  border: 1px solid rgba(216, 180, 95, 0.65);
+  color: var(--text);
+  background: rgba(216, 180, 95, 0.12);
+  box-shadow: 0 12px 34px rgba(216, 180, 95, 0.12);
+}
+
+.birthday-banner[hidden] {
+  display: none;
+}
+
+.birthday-banner__eyebrow {
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.birthday-banner__text {
+  color: var(--tribute-text);
+  font-size: 0.95rem;
+  font-weight: 800;
 }
 
 .kicker {
@@ -252,6 +293,58 @@ h1 {
   transform: rotate(-2deg);
 }
 
+body.is-birthday-mode .artwork-panel::before {
+  inset: -22px;
+  border-color: rgba(216, 180, 95, 0.75);
+  box-shadow:
+    0 0 0 1px rgba(216, 180, 95, 0.22),
+    0 0 40px rgba(216, 180, 95, 0.26);
+}
+
+body.is-birthday-mode .artwork-panel::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  top: -18px;
+  width: 70px;
+  height: 70px;
+  border-top: 3px solid var(--gold);
+  border-right: 3px solid var(--gold);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body.is-birthday-mode .birthday-banner {
+    animation: birthdayPulse 2600ms ease-in-out infinite;
+  }
+
+  body.is-birthday-mode .artwork-panel::after {
+    animation: birthdayCorner 1800ms ease-in-out infinite;
+  }
+}
+
+@keyframes birthdayPulse {
+  0%,
+  100% {
+    box-shadow: 0 12px 34px rgba(216, 180, 95, 0.12);
+  }
+
+  50% {
+    box-shadow: 0 16px 38px rgba(216, 180, 95, 0.26);
+  }
+}
+
+@keyframes birthdayCorner {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-5px, 5px);
+  }
+}
+
 .artwork-panel img {
   display: block;
   width: 100%;
@@ -315,6 +408,15 @@ h2 {
 
 .day-button.is-today:not(.is-selected) {
   border-color: var(--blue);
+}
+
+.day-button.is-birthday:not(.is-selected) {
+  border-color: rgba(216, 180, 95, 0.72);
+  color: var(--gold);
+}
+
+.day-button.is-birthday-selected {
+  box-shadow: 0 0 0 3px rgba(216, 180, 95, 0.22);
 }
 
 .day-button:disabled {
