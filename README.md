@@ -16,3 +16,5 @@ The deck avoids lyrics and is intended as a respectful tribute presentation.
 ## GitHub Pages App
 
 The static site opens to a daily song based on the day of the year. In August, it switches into tribute-month mode: the current August day is selected by default, future August dates stay locked until they arrive, and August 29 shows the birthday spotlight. Outside August, the full August tribute calendar is available as an archive.
+
+The year-round catalog uses 335 non-August songs plus the 31 August tribute entries, giving leap years 366 unique calendar slots without repeating a title. The expanded catalog was built from Wikipedia's lists of songs recorded by Michael Jackson and by the Jackson 5 / The Jacksons, including featured collaborations and excluding entries that explicitly say Michael Jackson was not involved.
