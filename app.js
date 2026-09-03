@@ -266,12 +266,14 @@ const elements = {
   localTime: document.querySelector("#localTime"),
 };
 
-const todayDay = Math.min(Math.max(new Date().getDate(), 1), 31);
+const now = new Date();
+const todayDay = Math.min(Math.max(now.getDate(), 1), 31);
+const isAugust = now.getMonth() === 7;
 let selectedDay = todayDay;
 const birthdayDay = 29;
 
 function dayHasArrived(day) {
-  return day <= todayDay;
+  return !isAugust || day <= todayDay;
 }
 
 function currentTheme() {
