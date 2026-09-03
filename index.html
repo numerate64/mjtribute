@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Michael Jackson August Tribute</title>
+    <title>Michael Jackson Song of the Day</title>
     <meta
       name="description"
-      content="A daily August tribute to Michael Jackson, featuring one song for each day of the month."
+      content="A Michael Jackson song of the day all year, with a special August tribute calendar."
     />
     <script>
       try {
@@ -21,7 +21,7 @@
   <body>
     <main class="app-shell">
       <div class="utility-bar">
-        <span>Michael Jackson August Tribute</span>
+        <span>Michael Jackson Song of the Day</span>
         <div class="utility-actions">
           <time class="local-time" id="localTime" aria-live="polite">Local time --:--:--</time>
           <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
@@ -32,7 +32,7 @@
 
       <section class="feature" aria-live="polite">
         <div class="feature-copy">
-          <p class="kicker" id="dateLabel">August</p>
+          <p class="kicker" id="dateLabel">Song of the Day</p>
           <div class="birthday-banner" id="birthdayBanner" hidden>
             <span class="birthday-banner__eyebrow">Birthday Spotlight</span>
             <span class="birthday-banner__text">August 29, 1958</span>
@@ -75,8 +75,8 @@
 
       <section class="calendar-section" aria-labelledby="calendarHeading">
         <div class="calendar-header">
-          <h2 id="calendarHeading">August Calendar</h2>
-          <button class="today-button" id="todayButton" type="button">Today</button>
+          <h2 id="calendarHeading">August Tribute Calendar</h2>
+          <button class="today-button" id="todayButton" type="button">Today's Song</button>
         </div>
         <div class="calendar-grid" id="calendarGrid" aria-label="Choose an August date"></div>
       </section>

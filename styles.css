@@ -445,7 +445,21 @@ h2 {
   }
 
   .artwork-panel {
-    width: min(440px, 100%);
+    width: min(440px, calc(100% - 20px));
+    margin-inline: auto;
+  }
+
+  .artwork-panel::before {
+    inset: -10px;
+  }
+
+  body.is-birthday-mode .artwork-panel::before {
+    inset: -12px;
+  }
+
+  body.is-birthday-mode .artwork-panel::after {
+    right: -6px;
+    top: -6px;
   }
 
   .calendar-grid {

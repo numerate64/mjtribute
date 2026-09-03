@@ -269,11 +269,44 @@ const elements = {
 const now = new Date();
 const todayDay = Math.min(Math.max(now.getDate(), 1), 31);
 const isAugust = now.getMonth() === 7;
-let selectedDay = todayDay;
+let selectedDay = isAugust ? todayDay : null;
 const birthdayDay = 29;
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-function dayHasArrived(day) {
+function augustDayAvailable(day) {
   return !isAugust || day <= todayDay;
+}
+
+function dayOfYear(date) {
+  const start = new Date(date.getFullYear(), 0, 0);
+  const elapsed = date - start + (start.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000;
+  return Math.floor(elapsed / 86400000);
+}
+
+function songForDate(date) {
+  const index = (dayOfYear(date) - 1) % songs.length;
+  return songs[index] || songs[0];
+}
+
+function tributeText(song, birthdayMode) {
+  if (!birthdayMode && song.day === birthdayDay) {
+    return "A tender late-era ballad that became one of his signature global moments.";
+  }
+
+  return song.tribute;
 }
 
 function currentTheme() {
@@ -305,18 +338,15 @@ function updateLocalTime() {
   })}`;
 }
 
-function renderDay(day) {
-  if (!dayHasArrived(day)) return;
+function renderSong(song, options = {}) {
+  selectedDay = options.selectedAugustDay ?? null;
+  const isBirthday = Boolean(options.birthdayMode && song.day === birthdayDay);
 
-  const song = songs[day - 1] || songs[0];
-  selectedDay = song.day;
-  const isBirthday = song.day === birthdayDay;
-
-  elements.dateLabel.textContent = `August ${song.day}`;
+  elements.dateLabel.textContent = options.dateLabel || `August ${song.day}`;
   elements.birthdayBanner.hidden = !isBirthday;
   elements.title.textContent = song.title;
   elements.album.textContent = `${song.album} | ${song.year}`;
-  elements.tribute.textContent = song.tribute;
+  elements.tribute.textContent = tributeText(song, isBirthday);
   document.body.classList.toggle("is-birthday-mode", isBirthday);
   const songQuery = `Michael Jackson ${song.title}`;
   elements.youtubeMusicLink.href = `https://music.youtube.com/search?q=${encodeURIComponent(`${songQuery} official video`)}`;
@@ -337,6 +367,28 @@ function renderDay(day) {
   });
 }
 
+function renderAugustDay(day) {
+  if (!augustDayAvailable(day)) return;
+
+  const song = songs[day - 1] || songs[0];
+  renderSong(song, {
+    birthdayMode: true,
+    dateLabel: `August ${song.day}`,
+    selectedAugustDay: song.day,
+  });
+}
+
+function renderTodaySong() {
+  if (isAugust) {
+    renderAugustDay(todayDay);
+    return;
+  }
+
+  renderSong(songForDate(now), {
+    dateLabel: `${monthNames[now.getMonth()]} ${todayDay} | Song of the Day`,
+  });
+}
+
 function buildCalendar() {
   const fragment = document.createDocumentFragment();
 
@@ -346,21 +398,21 @@ function buildCalendar() {
     button.type = "button";
     button.textContent = String(song.day);
     button.dataset.day = String(song.day);
-    const available = dayHasArrived(song.day);
+    const available = augustDayAvailable(song.day);
     button.disabled = !available;
     button.setAttribute(
       "aria-label",
       available
-        ? `Show August ${song.day}: ${song.title}`
+        ? `Show August ${song.day} tribute: ${song.title}`
         : `August ${song.day} unlocks when the day arrives`,
     );
     if (!available) {
       button.title = `Unlocks August ${song.day}`;
     }
-    button.classList.toggle("is-today", song.day === todayDay);
+    button.classList.toggle("is-today", isAugust && song.day === todayDay);
     button.classList.toggle("is-birthday", song.day === birthdayDay);
     if (available) {
-      button.addEventListener("click", () => renderDay(song.day));
+      button.addEventListener("click", () => renderAugustDay(song.day));
     }
     fragment.appendChild(button);
   });
@@ -368,13 +420,13 @@ function buildCalendar() {
   elements.grid.appendChild(fragment);
 }
 
-elements.todayButton.addEventListener("click", () => renderDay(todayDay));
+elements.todayButton.addEventListener("click", renderTodaySong);
 elements.themeToggle.addEventListener("click", () => {
   applyTheme(currentTheme() === "light" ? "dark" : "light");
 });
 
 buildCalendar();
 applyTheme(currentTheme());
-renderDay(todayDay);
+renderTodaySong();
 updateLocalTime();
 setInterval(updateLocalTime, 1000);

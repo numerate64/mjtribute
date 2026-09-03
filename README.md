@@ -1,6 +1,6 @@
-# Michael Jackson August Tribute
+# Michael Jackson Song of the Day
 
-An August tribute presentation honoring Michael Jackson's birth month.
+A year-round Michael Jackson song-of-the-day site with a special August tribute month.
 
 ## Contents
 
@@ -15,4 +15,4 @@ The deck avoids lyrics and is intended as a respectful tribute presentation.
 
 ## GitHub Pages App
 
-The static site opens to the current day of the month and displays that day's August tribute song. Calendar buttons let visitors preview any other August date. A page refresh recalculates the current day and returns to today's song.
+The static site opens to a daily song based on the day of the year. In August, it switches into tribute-month mode: the current August day is selected by default, future August dates stay locked until they arrive, and August 29 shows the birthday spotlight. Outside August, the full August tribute calendar is available as an archive.
